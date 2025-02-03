@@ -9,7 +9,7 @@ from app.main import outdated_products
     "today_date, products, expected_output",
     [
         (
-            datetime.date(2022, 2, 2),  # Mock today's date
+            datetime.date(2022, 2, 2),
             [
                 {
                     "name": "salmon",
@@ -31,7 +31,7 @@ from app.main import outdated_products
         ),
 
         (
-            datetime.date(2022, 1, 1),  # Mock today's date
+            datetime.date(2022, 1, 1),
             [
                 {
                     "name": "salmon",
@@ -53,7 +53,7 @@ from app.main import outdated_products
         ),
 
         (
-            datetime.date(2022, 2, 15),  # Mock today's date
+            datetime.date(2022, 2, 15),
             [
                 {
                     "name": "salmon",
@@ -75,9 +75,32 @@ from app.main import outdated_products
         ),
 
         (
-            datetime.date(2022, 2, 2),  # Mock today's date
+            datetime.date(2022, 2, 2),
             [],
             [],
+        ),
+
+        # New boundary condition test where expiration_date is equal to today's date
+        (
+            datetime.date(2022, 2, 2),
+            [
+                {
+                    "name": "salmon",
+                    "expiration_date": datetime.date(2022, 2, 2),
+                    "price": 600,
+                },
+                {
+                    "name": "chicken",
+                    "expiration_date": datetime.date(2022, 2, 5),
+                    "price": 120,
+                },
+                {
+                    "name": "duck",
+                    "expiration_date": datetime.date(2022, 2, 1),
+                    "price": 160,
+                },
+            ],
+            ["duck"],  # Expiration date equal to today's date should not be considered outdated
         ),
     ],
 )
