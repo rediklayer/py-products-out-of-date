@@ -80,7 +80,6 @@ from app.main import outdated_products
             [],
         ),
 
-        # New boundary condition test where expiration_date is equal to today's date
         (
             datetime.date(2022, 2, 2),
             [
@@ -100,7 +99,7 @@ from app.main import outdated_products
                     "price": 160,
                 },
             ],
-            ["duck"],  # Expiration date equal to today's date should not be considered outdated
+            ["duck"],
         ),
     ],
 )
@@ -112,5 +111,6 @@ def test_outdated_products(
 
     with patch("datetime.date") as mock_date:
         mock_date.today.return_value = today_date
-        mock_date.side_effect = lambda *args, **kw: datetime.date(*args, **kw)
+        mock_date.side_effect = lambda *args, **kw: \
+            datetime.date(*args, **kw)
         assert outdated_products(products) == expected_output
